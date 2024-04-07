@@ -34,6 +34,11 @@ class App extends Component {
     newUser.userName = logInInfo.userName;
     this.setState({currentUser: newUser})
   }
+  
+  addCredit = (creditAmount) => {
+  	const newCredit = {...this.state.creditList, creditAmount};
+  	this.setState({creditList: newCredit})
+  }
 
   // Create Routes and React elements to be rendered using React components
   render() {  
