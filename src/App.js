@@ -39,6 +39,11 @@ class App extends Component {
   	const newCredit = {...this.state.creditList, creditAmount};
   	this.setState({creditList: newCredit})
   }
+  
+  addDebit = (debitAmount) => {
+  	const newDebit = {...this.state.debitList, debitAmount};
+  	this.setState({debitList: newDebit })
+  }
 
   // Create Routes and React elements to be rendered using React components
   render() {  
