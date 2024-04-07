@@ -44,6 +44,18 @@ class App extends Component {
   	const newDebit = {...this.state.debitList, debitAmount};
   	this.setState({debitList: newDebit })
   }
+  
+  componentDidMount(){
+  	//fetch credit API
+  	fetch('https://johnnylaicode.github.io/api/credits.json') 
+  	.then(response => response.json())
+  	.then(data => this.setState({ creditList: data}));
+  	
+  	//fetch debits API
+  	fetch('https://johnnylaicode.github.io/api/debits.json') 
+  	.then(response => response.json())
+  	.then(data => this.setState({ debitList: data}));
+  }
 
   // Create Routes and React elements to be rendered using React components
   render() {  
