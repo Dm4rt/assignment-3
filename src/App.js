@@ -49,12 +49,20 @@ class App extends Component {
   	//fetch credit API
   	fetch('https://johnnylaicode.github.io/api/credits.json') 
   	.then(response => response.json())
-  	.then(data => this.setState({ creditList: data}));
+  	.then(data => {
+  		this.setState({ creditList: data});
+  		console.log(data);
+  	
+  	});
   	
   	//fetch debits API
   	fetch('https://johnnylaicode.github.io/api/debits.json') 
   	.then(response => response.json())
-  	.then(data => this.setState({ debitList: data}));
+  	.then(data => {
+  		this.setState({ debitList: data})
+  		console.log(data);
+  	
+  	});
   }
 
   // Create Routes and React elements to be rendered using React components
