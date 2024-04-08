@@ -31,16 +31,29 @@ const Credits = (props) => {
   }
   
   const changeDescription = (event) =>{
-  	
+  	updateDescription(event.target.value); //sets the global description to new description
   };
   
   const changeAmount = (event) =>{
-  	
+  	updateAmount(event.target.value); //sets the global amount to new description
   };
   
-  const addCredit = () => {
-  	return;
-  }
+  const addCredit = (event) => {
+  	event.preventDefault(); //This apparently stops form submission which we don't want
+  	
+  	//we then create a new credit with the information we got from form
+  	const newCredit = {
+  		id: credits.length,
+  		description: description,
+  		amount: parseFloat(amount).toFixed(2), //This makes sure that we only get up to 2 decimals
+  		date: new Date().toISOString().slice(0,10),//This just gets the current system time and formats it correctly
+  	};
+  	
+  	props.updateCredits([...credits, newCredit]); //This essentially updates the creditList to add the new credit
+  	updateDescription('');
+    	updateAmount(0);
+    	//we reset Description and Amount and clear the form
+  };
   
   return (
     <div>
@@ -51,7 +64,7 @@ const Credits = (props) => {
       <label htmlFor="description">Description</label>
       <input type="text" id="description" value = {description} onChange= {changeDescription} />
       <label htmlFor="amount">Amount</label>
-      <input type="number" id="amount" value = {amount} onChange= {changeAmount} />
+      <input type="number" id="amount" value = {amount} onChange= {changeAmount} step= "0.01" /> 
       <button onSubmit={addCredit}>Add</button>
       
       <ul>{allCredits}</ul> 
