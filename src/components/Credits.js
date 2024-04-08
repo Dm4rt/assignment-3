@@ -20,7 +20,7 @@ const Credits = (props) => {
   for(let i=0; i<listSize; i++){
   	const curCredit = credits[i];
   	allCredits.push(
-  		<li key={curCredit.id}>
+  		<li key={i}>
   		<h3>ID:</h3> {curCredit.id} <br />
   		<h3>Description:</h3> {curCredit.description} <br />
   		<h3>Amount:</h3> ${curCredit.amount} <br />
@@ -38,18 +38,18 @@ const Credits = (props) => {
   	updateAmount(event.target.value); //sets the global amount to new description
   };
   
-  const addCredit = (event) => {
+  const pushCredit = (event) => {
   	event.preventDefault(); //This apparently stops form submission which we don't want
   	
   	//we then create a new credit with the information we got from form
   	const newCredit = {
-  		id: credits.length,
+  		id: allCredits.length +1,
   		description: description,
   		amount: parseFloat(amount).toFixed(2), //This makes sure that we only get up to 2 decimals
-  		date: new Date().toISOString().slice(0,10),//This just gets the current system time and formats it correctly
+  		date: new Date().toISOString(),//This just gets the current system time and formats it correctly
   	};
   	
-  	props.updateCredits([...credits, newCredit]); //This essentially updates the creditList to add the new credit
+  	props.addCredit(newCredit);//This essentially updates the creditList to add the new credit
   	updateDescription('');
     	updateAmount(0);
     	//we reset Description and Amount and clear the form
@@ -61,12 +61,13 @@ const Credits = (props) => {
       <br/>
       {/* add a form to take user input for new credits*/}
       <h2>Add Credit: </h2>
-      <label htmlFor="description">Description</label>
-      <input type="text" id="description" value = {description} onChange= {changeDescription} />
-      <label htmlFor="amount">Amount</label>
-      <input type="number" id="amount" value = {amount} onChange= {changeAmount} step= "0.01" /> 
-      <button onSubmit={addCredit}>Add</button>
-      
+      	<form onSubmit={pushCredit}>
+ 	<label htmlFor="description">Description</label>
+  	<input type="text" id="description" value={description} onChange={changeDescription} />
+  	<label htmlFor="amount">Amount</label>
+ 	<input type="number" id="amount" value={amount} onChange={changeAmount} step="0.01" />
+ 	<button type="submit">Add</button>
+	</form>
       <ul>{allCredits}</ul> 
       <Link to="/">Return to Home</Link>
     </div>
