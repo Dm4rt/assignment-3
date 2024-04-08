@@ -17,10 +17,12 @@ class AccountBalance extends Component {
       borderRadius: '5px',
       boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
     };
-
+    //trying to fix bug
+    // First we check if accountBalance is a number before calling toFixed
+    const balance = typeof accountBalance === 'number' ? accountBalance.toFixed(2) : "Loading...";
     return (
       <div style={balanceStyle}>
-        Balance: {accountBalance != null ? accountBalance.toFixed(2) : 'Loading...'}
+        Balance: {balance}
       </div>
     );
   }
