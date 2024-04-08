@@ -17,10 +17,11 @@ const Credits = (props) => {
   	const curCredit = credits[i];
   	allCredits.push(
   		<li key={curCredit.id}>
-  		<h3>ID:</h3> {curCredit.id}, <br />
-  		<h3>Description:</h3> {curCredit.description}, <br />
-  		<h3>Amount:</h3> {curCredit.amount}, <br />
-  		<h3>Date:</h3> {curCredit.date}, <br />
+  		<h3>ID:</h3> {curCredit.id} <br />
+  		<h3>Description:</h3> {curCredit.description} <br />
+  		<h3>Amount:</h3> ${curCredit.amount} <br />
+  		<h3>Date:</h3> {curCredit.date} <br />
+  		<hr /> {/* I added this line to seperate between the credit entries */}
   		</li>
   	);
   }
