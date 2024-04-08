@@ -35,20 +35,27 @@ class App extends Component {
     this.setState({currentUser: newUser})
   }
   
-  addCredit = (creditAmount) => {
-  	const newCredit = [...this.state.creditList, creditAmount];
-  	this.setState({creditList: newCredit}, () =>{
-  		console.log(this.state.creditList);
-  	}
-  	);
+  addCredit = (credit) => {
+    const newCreditList = [...this.state.creditList, credit];
+    const newAccountBalance = this.calculateBalance(newCreditList, this.state.debitList); //we call this do update Balance
+    this.setState({creditList: newCreditList, accountBalance: newAccountBalance});
+     console.log('New Balance:', newAccountBalance); // Log new balance for testing purpoises
   }
   
-  addDebit = (debitAmount) => {
-  	const newDebit = {...this.state.debitList, debitAmount};
-  	this.setState({debitList: newDebit })
+  addDebit = (debit) => {
+    const newDebitList = [...this.state.debitList, debit];
+    const newAccountBalance = this.calculateBalance(this.state.creditList, newDebitList); //same as before, update balance
+    this.setState({debitList: newDebitList, accountBalance: newAccountBalance});
+  }
+  //This function basically updates the balance using the credits-debits formula
+  calculateBalance = (credits, debits) => {
+    const totalCredits = credits.reduce((total, credit) => total + parseFloat(credit.amount), 0);
+    const totalDebits = debits.reduce((total, debit) => total + parseFloat(debit.amount), 0);
+    return totalCredits - totalDebits;
   }
   
   componentDidMount(){
+  	
   	//fetch credit API
   	fetch('https://johnnylaicode.github.io/api/credits.json') 
   	.then(response => response.json())
@@ -62,9 +69,11 @@ class App extends Component {
   	fetch('https://johnnylaicode.github.io/api/debits.json') 
   	.then(response => response.json())
   	.then(data => {
-  		this.setState({ debitList: data})
-  		console.log(data);
-  	
+  		this.setState({ debitList: data }, () => {
+        	  //We call a calucate after both API's load  to have an accurate starter balance
+       		  const newAccountBalance = this.calculateBalance(this.state.creditList, this.state.debitList);
+        	  this.setState({ accountBalance: newAccountBalance });
+      		});
   	});
   }
 
