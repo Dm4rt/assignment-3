@@ -13,12 +13,13 @@ import UserProfile from './components/UserProfile';
 import LogIn from './components/Login';
 import Credits from './components/Credits';
 import Debits from './components/Debits';
+import AccountBalance from './components/AccountBalance';
 
 class App extends Component {
   constructor() {  // Create and initialize state
     super(); 
     this.state = {
-      accountBalance: 1234567.89,
+      accountBalance: 0,
       creditList: [],
       debitList: [],
       currentUser: {
@@ -92,6 +93,7 @@ class App extends Component {
     return (
       <Router basename="/assignment-3">
         <div>
+          <AccountBalance balance={this.state.accountBalance} /> {/* Render the AccountBalance component */}
           <Route exact path="/" render={HomeComponent}/>
           <Route exact path="/userProfile" render={UserProfileComponent}/>
           <Route exact path="/login" render={LogInComponent}/>
