@@ -99,7 +99,6 @@ class App extends Component {
     return (
       <Router basename="/assignment-3">
         <div>
-          <AccountBalance balance={this.state.accountBalance} /> {/* Render the AccountBalance component */}
           <Route exact path="/" render={HomeComponent}/>
           <Route exact path="/userProfile" render={UserProfileComponent}/>
           <Route exact path="/login" render={LogInComponent}/>
