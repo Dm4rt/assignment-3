@@ -7,27 +7,30 @@ Note: You need to work on this file for the Assignment.
 import {Link} from 'react-router-dom';
 
 const Debits = (props) => {
-  // Create the list of Debit items
-  let debitsView = () => {
-    const { debits } = props;
-    return debits.map((debit) => {  // Extract "id", "amount", "description" and "date" properties of each debits JSON array element
-      let date = debit.date.slice(0,10);
-      return <li key={debit.id}>{debit.amount} {debit.description} {date}</li>
-    });
+  console.log('Debit props:', props.debits);
+  const {debits} = props; //We get the debitList from App.js
+  console.log(debits);
+  const listSize = debits.length;
+  const allDebits = [];
+  //Iterate through the debit list and push to a new allDebits array we will display
+  for(let i=0; i<listSize; i++){
+  	const curDebit = debits[i];
+  	allDebits.push(
+  		<li key={curDebit.id}>
+  		<h3>ID:</h3> {curDebit.id} <br />
+  		<h3>Description:</h3> {curDebit.description} <br />
+  		<h3>Amount:</h3> ${curDebit.amount} <br />
+  		<h3>Date:</h3> {curDebit.date.slice(0,10)} <br />
+  		<hr /> {/* I added this way of rendering so it resembles the credits page */}
+  		</li>
+  	);
   }
-  // Render the list of Debit items and a form to input new Debit item
+  
   return (
     <div>
       <h1>Debits</h1>
-
-      {debitsView()}
-
-      <form onSubmit={props.addDebit}>
-        <input type="text" name="description" />
-        <input type="number" name="amount" />
-        <button type="submit">Add Debit</button>
-      </form>
       <br/>
+      <ul>{allDebits}</ul> 
       <Link to="/">Return to Home</Link>
     </div>
   );
