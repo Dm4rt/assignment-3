@@ -94,6 +94,7 @@ class App extends Component {
     );
     const DebitsComponent = () => (
     	<div>
+    		<AccountBalance accountBalance={this.state.accountBalance} />
     		<Debits debits={this.state.debitList} addDebit = {this.addDebit} />
     	</div>
     );
